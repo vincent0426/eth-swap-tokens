@@ -14,7 +14,7 @@ import { IoSwapVerticalOutline } from "react-icons/io5";
 
 const BuyForm = ({ ethSwap, ethBalance, tokenBalance, rate, onSwapClick }) => {
     const [ethAmount, setEthAmount] = useState("0");
-    const [tokenAmount, settokenAmount] = useState("0");
+    const [tokenAmount, setTokenAmount] = useState("0");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const BuyForm = ({ ethSwap, ethBalance, tokenBalance, rate, onSwapClick }) => {
                             value={ethAmount}
                             onChange={(e) => {
                                 setEthAmount(e.target.value);
-                                settokenAmount(e.target.value * { rate });
+                                setTokenAmount(e.target.value * rate);
                             }}
                         />
 

@@ -14,6 +14,35 @@ async function main() {
 
     console.log("EthSwap address:", ethSwap.address);
     await token.transfer(ethSwap.address, ethers.utils.parseEther("1000000"));
+
+    saveFrontendFiles(token, ethSwap);
+}
+
+function saveFrontendFiles(token, ethSwap) {
+    const fs = require("fs");
+    const tokenAddress =
+        __dirname + "/../frontend/src/artifacts/contracts/Token.sol";
+
+    if (!fs.existsSync(tokenAddress)) {
+        fs.mkdirSync(tokenAddress);
+    }
+
+    fs.writeFileSync(
+        tokenAddress + "/token-address.json",
+        JSON.stringify({ Address: token.address }, undefined, 2)
+    );
+
+    const ethSwapAddress =
+        __dirname + "/../frontend/src/artifacts/contracts/EthSwap.sol";
+
+    if (!fs.existsSync(ethSwapAddress)) {
+        fs.mkdirSync(ethSwapAddress);
+    }
+
+    fs.writeFileSync(
+        ethSwapAddress + "/ethSwap-address.json",
+        JSON.stringify({ Address: ethSwap.address }, undefined, 2)
+    );
 }
 
 main()

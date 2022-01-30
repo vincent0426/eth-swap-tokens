@@ -8,8 +8,8 @@ import { Container } from "react-bootstrap";
 import EthSwap from "./artifacts/contracts/EthSwap.sol/EthSwap.json";
 import Token from "./artifacts/contracts/Token.sol/Token.json";
 
-const tokenAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
-const ethSwapAddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
+import tokenAddress from "./artifacts/contracts/Token.sol/token-address.json";
+import ethSwapAddress from "./artifacts/contracts/EthSwap.sol/ethSwap-address.json";
 
 const App = () => {
     const [account, setAccount] = useState("");
@@ -22,7 +22,7 @@ const App = () => {
 
     const [rate, setRate] = useState("0");
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -40,7 +40,7 @@ const App = () => {
                 setEthBalance(ethBalance.toString());
 
                 const tokenContract = new ethers.Contract(
-                    tokenAddress,
+                    tokenAddress.Address,
                     Token.abi,
                     signer
                 );
@@ -50,7 +50,7 @@ const App = () => {
                 setTokenBalance(tokenBalance.toString());
 
                 const ethSwapContract = new ethers.Contract(
-                    ethSwapAddress,
+                    ethSwapAddress.Address,
                     EthSwap.abi,
                     signer
                 );
@@ -87,7 +87,6 @@ const App = () => {
                             ) / 1e4
                         }
                         rate={rate}
-                        // buyTokens={buyTokens}
                     />
                 </Container>
             )}
